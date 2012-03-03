@@ -5,9 +5,13 @@ from=$2
 subject=$3
 body=$4
 
-echo "To: ${to}" > /tmp/email
-echo "From: ${from}" >> /tmp/email
-echo "Subject: ${subject}" >> /tmp/email
-echo "${body}" >> /tmp/email
+rand=$RANDOM
 
-cat /tmp/email | msmtp -a default ${to}
+echo "To: ${to}" > /tmp/email-${rand}
+echo "From: ${from}" >> /tmp/email-${rand}
+echo "Subject: ${subject}" >> /tmp/email-${rand}
+echo "${body}" >> /tmp/email-${rand}
+
+cat /tmp/email-${rand} | msmtp -a default ${to}
+
+rm /tmp/email-${rand}
